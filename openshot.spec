@@ -1,6 +1,6 @@
 Name:           openshot
-Version:        1.3.0
-Release:        3%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        A GTK based non-linear video editor 
 
 Group:          Applications/Multimedia
@@ -11,8 +11,8 @@ License:        GPLv3
 URL:            http://www.openshotvideo.com/
 
 Source0:        http://launchpad.net/openshot/1.3/%{version}/+download/openshot-%{version}.tar.gz
-Patch0:         %{name}-%{version}-use_mlt-melt.diff
-Patch1:         %{name}-%{version}-doc-install.diff
+Patch0:         %{name}-1.3.0-use_mlt-melt.diff
+Patch1:         %{name}-1.3.0-doc-install.diff
 
 BuildArch: noarch
 
@@ -27,6 +27,7 @@ Requires:      pygoocanvas
 Requires:      pygtk2-libglade
 Requires:      python(abi) >= 2.5
 Requires:      python-imaging
+Requires:      python-httplib2
 Requires:      pyxdg
 Requires:      SDL
 Requires:      sox
@@ -127,6 +128,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Tue May 31 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.1-1
+- Update to latest release: 1.3.1
+
 * Sun Apr 10 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.0-2
 - Fixed spec file for packaging guidelines compliance.
 
