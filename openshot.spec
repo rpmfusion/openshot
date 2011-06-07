@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A GTK based non-linear video editor 
 
 Group:          Applications/Multimedia
@@ -128,7 +128,7 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
-* Tue May 31 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.1-1
+* Tue May 31 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.1-2
 - Update to latest release: 1.3.1
 
 * Sun Apr 10 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.0-2
