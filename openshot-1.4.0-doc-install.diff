@@ -1,0 +1,44 @@
+diff -Naur openshot-1.4beta2.orig/setup.py openshot-1.4beta2/setup.py
+--- openshot-1.4beta2.orig/setup.py	2011-09-21 16:22:26.012332050 -0500
++++ openshot-1.4beta2/setup.py	2011-09-21 16:22:58.805224968 -0500
+@@ -53,6 +53,31 @@
+ 	locale_files.append(filepath)
+ 	
+ 
++# Add the help files
++help_files = []
++for path in glob.glob(os.path.join('docs', 'gnome', '*')):
++    lang = os.path.basename(path)
++    if lang == 'figures':
++        continue
++    path_xml = os.path.join('share', 'gnome', 'help', 'openshot', lang)
++    help_files.append((path_xml, glob.glob('%s/*.xml' % path)))
++
++# figures are not locale-specific
++figures = glob.glob(os.path.join('docs', 'gnome', 'figures', '*.png'))
++figures_path = os.path.join('share', 'gnome', 'help', 'openshot', 'figures')
++help_files.append((figures_path, figures))
++figures = glob.glob(os.path.join('docs', 'gnome', 'figures', 'effects', '*.png'))
++figures_path = os.path.join('share', 'gnome', 'help', 'openshot', 'figures', 'effects')
++help_files.append((figures_path, figures))
++figures = glob.glob(os.path.join('docs', 'gnome', 'figures', 'transitions', '*.png'))
++figures_path = os.path.join('share', 'gnome', 'help', 'openshot', 'figures', 'transitions')
++help_files.append((figures_path, figures))
++
++# OMFs are in a different directory
++omfs = glob.glob(os.path.join('docs', 'omf', '*.omf'))
++omf_path = os.path.join('share', 'omf', 'openshot')
++help_files.append((omf_path, omfs))
++
+ # Call the main Distutils setup command
+ # -------------------------------------
+ dist = setup(
+@@ -63,7 +88,7 @@
+ 	 				'openshot.windows' : ['ui/*.ui', 'ui/icons/*'],
+ 	 				'openshot.uploads' : ['logos/*.png'],
+ 	 				},
+-	 data_files = os_files,
++	 data_files = os_files + help_files,
+ 	 **info.SETUP
+ )
+ # -------------------------------------
