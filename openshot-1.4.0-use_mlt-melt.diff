@@ -1,0 +1,24 @@
+diff -Naur openshot-1.4.0.orig/openshot/classes/av_formats.py openshot-1.4.0/openshot/classes/av_formats.py
+--- openshot-1.4.0.orig/openshot/classes/av_formats.py	2011-09-15 21:19:01.000000000 -0500
++++ openshot-1.4.0/openshot/classes/av_formats.py	2011-09-23 09:14:16.357445808 -0500
+@@ -32,7 +32,7 @@
+ 
+ class formats:
+ 	
+-	def __init__(self, melt_command="melt"):
++	def __init__(self, melt_command="mlt-melt"):
+ 		# init melt command
+ 		self.melt_command = melt_command
+ 		
+diff -Naur openshot-1.4.0.orig/openshot/windows/preferences.py openshot-1.4.0/openshot/windows/preferences.py
+--- openshot-1.4.0.orig/openshot/windows/preferences.py	2011-09-22 18:12:01.000000000 -0500
++++ openshot-1.4.0/openshot/windows/preferences.py	2011-09-23 09:14:16.357445808 -0500
+@@ -358,7 +358,7 @@
+ 		"default_profile" : "DV/DVD NTSC",
+ 		"project_file_type" : "ascii",
+ 		"max_history_size" : "20",
+-		"melt_command" : "melt",
++		"melt_command" : "mlt-melt",
+ 		"blender_command" : "blender",
+ 		"output_mode" : "sdl",
+ 		"use_stock_icons" : "Yes",
