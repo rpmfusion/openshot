@@ -1,5 +1,5 @@
 Name:           openshot
-Version:        1.3.1
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        A GTK based non-linear video editor 
 
@@ -10,9 +10,9 @@ Group:          Applications/Multimedia
 License:        GPLv3
 URL:            http://www.openshotvideo.com/
 
-Source0:        http://launchpad.net/openshot/1.3/%{version}/+download/openshot-%{version}.tar.gz
-Patch0:         %{name}-1.3.0-use_mlt-melt.diff
-Patch1:         %{name}-1.3.0-doc-install.diff
+Source0:        http://launchpad.net/openshot/1.4/%{version}/+download/openshot-%{version}.tar.gz
+Patch0:         openshot-1.4.0-use_mlt-melt.diff
+Patch1:         openshot-1.4.0-doc-install.diff
 
 BuildArch: noarch
 
@@ -31,8 +31,9 @@ Requires:      python-httplib2
 Requires:      pyxdg
 Requires:      SDL
 Requires:      sox
-#Requires:      librsvg2
+Requires:      librsvg2
 Requires:      frei0r-plugins
+Requires:      fontconfig
 
 
 %description
@@ -49,11 +50,12 @@ render the output in many different formats.
 # Don't install unnecessary stuff
 sed -i -e '/lib\/mime\/packages/d' setup.py
 
+
 %build
 %{__python} setup.py build
 
+
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT 
 
 # Remove unnecessary .po files
@@ -87,9 +89,6 @@ do
 done
 
 
-%clean
-rm -rf %{buildroot}
-
 %post
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
@@ -101,7 +100,6 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING README
 %{_datadir}/gnome/help/openshot/
 %{_datadir}/omf/openshot/
@@ -128,8 +126,8 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
-* Tue May 31 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.1-1
-- Update to latest release: 1.3.1
+* Fri Sep 23 2011 Richard Shaw <hobbes1069@gmail.com> - 1.4.0-1
+- New release.
 
 * Sun Apr 10 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.0-2
 - Fixed spec file for packaging guidelines compliance.
