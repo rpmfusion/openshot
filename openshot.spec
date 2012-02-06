@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A GTK based non-linear video editor 
 
 Group:          Applications/Multimedia
@@ -18,7 +18,7 @@ BuildArch: noarch
 
 #BuildRequires: gettext
 BuildRequires: desktop-file-utils
-BuildRequires: python2-devel
+BuildRequires: python-devel
 # Resize icon
 BuildRequires: ImageMagick
 
@@ -85,7 +85,7 @@ mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
          %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 mv %{buildroot}%{_datadir}/pixmaps/%{name}.svg \
    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-convert -resize 48x48 \
+convert -resize 48x48 -strip \
 	%{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg \
 	%{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
@@ -139,8 +139,10 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
-* Mon Feb 06 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.2-1
+* Mon Feb 06 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.2-2
 - Update to latest release.
+- Fixed small build problem with the buildroot path finding it's way into
+  a packaged file.
 
 * Mon Jan 30 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.1-1
 - Update to latest release.
