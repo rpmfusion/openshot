@@ -1,5 +1,5 @@
 Name:           openshot
-Version:        1.4.0
+Version:        1.4.2
 Release:        1%{?dist}
 Summary:        A GTK based non-linear video editor 
 
@@ -19,6 +19,8 @@ BuildArch: noarch
 #BuildRequires: gettext
 BuildRequires: desktop-file-utils
 BuildRequires: python2-devel
+# Resize icon
+BuildRequires: ImageMagick
 
 Requires:      mlt
 Requires:      mlt-python
@@ -34,6 +36,8 @@ Requires:      sox
 Requires:      librsvg2
 Requires:      frei0r-plugins
 Requires:      fontconfig
+# Needed because it owns icon directories
+Requires:      hicolor-icon-theme
 
 
 %description
@@ -56,7 +60,7 @@ sed -i -e '/lib\/mime\/packages/d' setup.py
 
 
 %install
-%{__python} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT 
+%{__python} setup.py install -O1 --skip-build --root=%{buildroot}
 
 # Remove unnecessary .po files
 rm %{buildroot}%{python_sitelib}/%{name}/locale/*/*/*.po
@@ -75,6 +79,15 @@ done
 
 # Validate desktop file
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+
+# Move icon files to the preferred location
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
+         %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
+mv %{buildroot}%{_datadir}/pixmaps/%{name}.svg \
+   %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+convert -resize 48x48 \
+	%{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg \
+	%{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 # modify find-lang.sh to deal with gettext .mo files under
 # openshot/locale
@@ -105,7 +118,7 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_datadir}/omf/openshot/
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/*
+%{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/mime/packages/*
 %dir %{python_sitelib}/%{name}
 %{python_sitelib}/%{name}/*.py*
@@ -126,6 +139,12 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Feb 06 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.2-1
+- Update to latest release.
+
+* Mon Jan 30 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.1-1
+- Update to latest release.
+
 * Fri Sep 23 2011 Richard Shaw <hobbes1069@gmail.com> - 1.4.0-1
 - New release.
 
