@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        1.4.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A GTK based non-linear video editor 
 
 Group:          Applications/Multimedia
@@ -105,13 +105,20 @@ done
 
 
 %post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
-
 
 %postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f %{name}.lang
@@ -141,6 +148,12 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Feb 20 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.2-4
+- Fix small packaging bug with icon.
+
+* Wed Feb 08 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Mon Feb 06 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.2-2
 - Update to latest release.
 - Fixed small build problem with the buildroot path finding it's way into
