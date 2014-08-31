@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        1.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A GTK based non-linear video editor 
 
 Group:          Applications/Multimedia
@@ -148,6 +148,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Fri Oct 26 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.3-1
 - Update to latest upstream release.
 
