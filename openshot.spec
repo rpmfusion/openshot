@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        1.4.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A GTK based non-linear video editor 
 
 Group:          Applications/Multimedia
@@ -11,6 +11,8 @@ License:        GPLv3
 URL:            http://www.openshotvideo.com/
 
 Source0:        http://launchpad.net/openshot/1.4/%{version}/+download/openshot-%{version}.tar.gz
+Source1:        openshot.png
+
 Patch0:         openshot-1.4.0-use_mlt-melt.diff
 Patch1:         openshot-1.4.0-doc-install.diff
 
@@ -21,9 +23,11 @@ BuildRequires: desktop-file-utils
 BuildRequires: python-devel
 # Resize icon
 BuildRequires: ImageMagick
+BuildRequires: exiv2
 
 Requires:      mlt
 Requires:      mlt-python
+Requires:      ladspa
 Requires:      notify-python
 Requires:      pygoocanvas
 Requires:      pygtk2-libglade
@@ -85,11 +89,7 @@ mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
          %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 mv %{buildroot}%{_datadir}/pixmaps/%{name}.svg \
    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-convert -resize 48x48 -strip \
-	%{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg \
-	%{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-# Take more drastic action because -strip doesn't seem to work in F15
-sed -i 's|%{buildroot}||g' %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
+cp -p %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 
 # modify find-lang.sh to deal with gettext .mo files under
 # openshot/locale
@@ -148,6 +148,13 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Apr  6 2015 Richard Shaw <hobbes1069@gmail.com> - 1.4.3-3
+- Fix broken icon file (BZ#3546).
+- Add ladspa as a install requirement (BZ#3472).
+
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Fri Oct 26 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.3-1
 - Update to latest upstream release.
 
