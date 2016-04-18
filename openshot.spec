@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        2.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -21,6 +21,7 @@ BuildRequires:  ImageMagick
 
 Requires:       python3-qt5
 Requires:       python3-httplib2
+Requires:       python3-libopenshot
 Requires:       ffmpeg-libs
 
 
@@ -106,6 +107,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Mon Apr 18 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-2
+- Update to require python3-libopenshot.
+
 * Fri Apr  8 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-1
 - Update to latest upstream release.
 
