@@ -20,6 +20,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  ImageMagick
 
 Requires:       python3-qt5
+Requires:       python3-qt5-webkit
 Requires:       python3-httplib2
 Requires:       python3-libopenshot
 Requires:       ffmpeg-libs
