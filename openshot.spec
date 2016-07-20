@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        2.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -108,6 +108,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Wed Jul 20 2016 Sérgio Basto <sergio@serjux.com> - 2.0.7-3
+- Add python3-qt5-webkit to package requires
+
 * Mon Apr 18 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-2
 - Update to require python3-libopenshot.
 
