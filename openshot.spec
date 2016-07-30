@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        2.0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -108,6 +108,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 2.0.7-4
+- Rebuilt for ffmpeg-3.1.1
+
 * Wed Jul 20 2016 Sérgio Basto <sergio@serjux.com> - 2.0.7-3
 - Add python3-qt5-webkit to package requires
 
