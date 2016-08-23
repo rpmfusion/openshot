@@ -1,6 +1,6 @@
 Name:           openshot
 Version:        2.0.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -43,6 +43,14 @@ Features include:
 * Upload videos (YouTube and Vimeo supported)
 
 
+%package lang
+Summary:        Additional languages for OpenShot
+Requires:       %{name} = %{version}-%{release}
+
+%description lang
+%{summary}.
+
+
 %prep
 %setup -qc
 
@@ -76,25 +84,28 @@ mv %{buildroot}%{_datadir}/pixmaps/%{name}-qt.svg \
 # Provided icon is not square
 convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/openshot-qt.png
 
-%find_lang OpenShot
+%find_lang %{name}_qt --all-name
 
 
 %post
+/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 update-desktop-database &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
+    /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
 update-desktop-database &> /dev/null || :
 
 %posttrans
+/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
-%files -f OpenShot.lang
+%files -f %{name}_qt.lang
 %license COPYING
 %doc AUTHORS README
 %{_bindir}/*
@@ -102,12 +113,18 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/mime/packages/*
 %{python3_sitelib}/%{name}_qt/
-%exclude %{python3_sitelib}/%{name}_qt/locale/
+%exclude %{python3_sitelib}/%{name}_qt/locale
 %{python3_sitelib}/*egg-info
 %{_prefix}/lib/mime/packages/openshot-qt
 
+%files lang -f %{name}_qt.lang
+%dir %{python3_sitelib}/%{name}_qt/locale
+
 
 %changelog
+* Tue Aug 23 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-5
+- Install locale files.
+
 * Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 2.0.7-4
 - Rebuilt for ffmpeg-3.1.1
 
