@@ -1,5 +1,9 @@
+%global major 2
+%global minor 1
+%global patch 0
+
 Name:           openshot
-Version:        2.0.7
+Version:        %{major}.%{minor}.%{patch}
 Release:        5%{?dist}
 Summary:        Create and edit videos and movies
 
@@ -7,7 +11,7 @@ Group:          Applications/Multimedia
 License:        GPLv3+
 URL:            http://www.openshotvideo.com/
 
-Source0:        http://launchpad.net/openshot/2.0/%{version}/+download/openshot-qt-%{version}.tar.gz
+Source0:        http://launchpad.net/openshot/%{major}.%{minor}/%{version}/+download/openshot-qt-%{version}.tar.gz
 
 BuildArch: noarch
 
@@ -23,7 +27,9 @@ Requires:       python3-qt5
 Requires:       python3-qt5-webkit
 Requires:       python3-httplib2
 Requires:       python3-libopenshot
+Requires:       python3-zmq
 Requires:       ffmpeg-libs
+Requires:       openshot-lang
 
 
 %description
@@ -122,6 +128,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Tue Aug 30 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-1
+- Update to latest upstream release.
+
 * Tue Aug 23 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-5
 - Install locale files.
 
