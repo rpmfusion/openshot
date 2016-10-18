@@ -4,7 +4,7 @@
 
 Name:           openshot
 Version:        %{major}.%{minor}.%{patch}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -128,7 +128,7 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
-* Tue Aug 30 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-1
+* Tue Oct 18 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-1
 - Update to latest upstream release.
 
 * Tue Aug 23 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-5
