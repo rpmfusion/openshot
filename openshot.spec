@@ -2,9 +2,12 @@
 %global minor 1
 %global patch 0
 
+# Redirect find_lang to our patched version
+%global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
+
 Name:           openshot
 Version:        %{major}.%{minor}.%{patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -12,6 +15,9 @@ License:        GPLv3+
 URL:            http://www.openshotvideo.com/
 
 Source0:        http://launchpad.net/openshot/%{major}.%{minor}/%{version}/+download/openshot-qt-%{version}.tar.gz
+
+# QT translation files are installed to a non-standard location
+Source100:      openshot-find-lang.sh
 
 BuildArch: noarch
 
@@ -29,7 +35,8 @@ Requires:       python3-httplib2
 Requires:       python3-libopenshot
 Requires:       python3-zmq
 Requires:       ffmpeg-libs
-Requires:       openshot-lang
+
+Recommends:     openshot-lang
 
 
 %description
@@ -90,7 +97,7 @@ mv %{buildroot}%{_datadir}/pixmaps/%{name}-qt.svg \
 # Provided icon is not square
 convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/openshot-qt.png
 
-%find_lang %{name}_qt --all-name
+%find_lang OpenShot --with-qt
 
 
 %post
@@ -111,7 +118,7 @@ update-desktop-database &> /dev/null || :
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
-%files -f %{name}_qt.lang
+%files
 %license COPYING
 %doc AUTHORS README
 %{_bindir}/*
@@ -123,12 +130,16 @@ update-desktop-database &> /dev/null || :
 %{python3_sitelib}/*egg-info
 %{_prefix}/lib/mime/packages/openshot-qt
 
-%files lang -f %{name}_qt.lang
+%files lang -f OpenShot.lang
 %dir %{python3_sitelib}/%{name}_qt/locale
 
 
 %changelog
-* Tue Oct 18 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-1
+* Sun Dec  4 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-2
+- All translation files now included in openshot-lang, fixes RFBZ#4358.
+- Change dependency on openshot-lang from Requires to Recommends.
+
+* Tue Aug 30 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-1
 - Update to latest upstream release.
 
 * Tue Aug 23 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-5
