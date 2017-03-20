@@ -7,7 +7,7 @@
 
 Name:           openshot
 Version:        %{major}.%{minor}.%{patch}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -135,6 +135,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Mon Mar 20 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sun Dec  4 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-2
 - All translation files now included in openshot-lang, fixes RFBZ#4358.
 - Change dependency on openshot-lang from Requires to Recommends.
