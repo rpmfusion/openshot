@@ -1,5 +1,5 @@
 %global major 2
-%global minor 1
+%global minor 2
 %global patch 0
 
 # Redirect find_lang to our patched version
@@ -7,7 +7,7 @@
 
 Name:           openshot
 Version:        %{major}.%{minor}.%{patch}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -135,6 +135,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sat Mar 25 2017 Sérgio Basto <sergio@serjux.com> - 2.2.0-1
+- Update openshot to 2.2.0
+
 * Mon Mar 20 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
