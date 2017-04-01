@@ -1,5 +1,5 @@
 %global major 2
-%global minor 2
+%global minor 3
 %global patch 0
 
 # Redirect find_lang to our patched version
@@ -135,6 +135,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri Mar 31 2017 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-1
+- Update to latest upstream release.
+
 * Sat Mar 25 2017 Sérgio Basto <sergio@serjux.com> - 2.2.0-1
 - Update openshot to 2.2.0
 
