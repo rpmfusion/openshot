@@ -1,6 +1,6 @@
 %global major 2
 %global minor 3
-%global patch 0
+%global patch 1
 
 # Redirect find_lang to our patched version
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
@@ -135,6 +135,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Mon Apr 03 2017 Sérgio Basto <sergio@serjux.com> - 2.3.1-1
+- Update to 2.3.1
+
 * Fri Mar 31 2017 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-1
 - Update to latest upstream release.
 
