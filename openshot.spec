@@ -7,7 +7,7 @@
 
 Name:           openshot
 Version:        %{major}.%{minor}.%{patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -135,6 +135,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sat Apr 29 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.3.1-2
+- Rebuild for ffmpeg update
+
 * Mon Apr 03 2017 Sérgio Basto <sergio@serjux.com> - 2.3.1-1
 - Update to 2.3.1
 
