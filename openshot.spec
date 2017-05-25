@@ -1,25 +1,21 @@
-%global major 2
-%global minor 3
-%global patch 1
-
 # Redirect find_lang to our patched version
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        %{major}.%{minor}.%{patch}
-Release:        2%{?dist}
+Version:        2.3.3
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
 License:        GPLv3+
-URL:            http://www.openshotvideo.com/
+URL:            http://www.openshot.org
 
-Source0:        http://launchpad.net/openshot/%{major}.%{minor}/%{version}/+download/openshot-qt-%{version}.tar.gz
+Source0:        https://github.com/OpenShot/%{name}-qt/archive/v%{version}/%{name}-qt-%{version}.tar.gz
 
 # QT translation files are installed to a non-standard location
 Source100:      openshot-find-lang.sh
 
-BuildArch: noarch
+BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-qt5-devel
@@ -65,7 +61,7 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %prep
-%setup -qc
+%autosetup -n %{name}-qt-%{version}
 
 
 %build
@@ -135,6 +131,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri May 12 2017 Richard Shaw <hobbes1069@gmail.com> - 2.3.2-1
+- Update to latest upstream release.
+
 * Sat Apr 29 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.3.1-2
 - Rebuild for ffmpeg update
 
