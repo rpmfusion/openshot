@@ -2,8 +2,8 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.3.3
-Release:        2%{?dist}
+Version:        2.3.4
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -19,7 +19,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-qt5-devel
-BuildRequires:  libopenshot
+BuildRequires:  python3-setuptools
+BuildRequires:  libopenshot >= 0.1.7
 BuildRequires:  libopenshot-audio
 BuildRequires:  desktop-file-utils
 # To fix icon
@@ -131,6 +132,9 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sun Sep 03 2017 Sérgio Basto <sergio@serjux.com> - 2.3.4-1
+- Update to 2.3.4
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
