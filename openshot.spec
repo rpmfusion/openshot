@@ -2,7 +2,7 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.3.4
+Version:        2.4.0
 Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
@@ -66,11 +66,11 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %build
-%{__python3} setup.py build
+%py3_build
 
 
 %install
-%{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
+%py3_install
 
 # We strip bad shebangs (/usr/bin/env) instead of fixing them
 # since these files are not executable anyways
@@ -98,20 +98,15 @@ convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewp
 
 
 %post
-/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-update-desktop-database &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
-    /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
-update-desktop-database &> /dev/null || :
 
 %posttrans
-/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
@@ -132,6 +127,11 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Fri Sep 08 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.4.0-1
+- Update to 2.4.0
+- Use python macros
+- Remove obsolete scriptlets
+
 * Sun Sep 03 2017 Sérgio Basto <sergio@serjux.com> - 2.3.4-1
 - Update to 2.3.4
 
