@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -29,7 +29,7 @@ BuildRequires:  ImageMagick
 Requires:       python3-qt5
 Requires:       python3-qt5-webkit
 Requires:       python3-httplib2
-Requires:       python3-libopenshot
+Requires:       python3-libopenshot >= 0.1.8
 Requires:       python3-zmq
 Requires:       ffmpeg-libs
 
@@ -127,6 +127,9 @@ fi
 
 
 %changelog
+* Mon Sep 11 2017 Sérgio Basto <sergio@serjux.com> - 2.4.0-2
+- Also requires libopenshot >= 0.1.8
+
 * Fri Sep 08 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.4.0-1
 - Update to 2.4.0
 - Use python macros
