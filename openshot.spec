@@ -34,6 +34,7 @@ Requires:       python3-zmq
 Requires:       ffmpeg-libs
 
 Recommends:     openshot-lang
+Recommends:     font(bitstreamverasans)
 
 
 %description
@@ -127,6 +128,9 @@ fi
 
 
 %changelog
+* Wed Oct 25 2017 Richard Shaw <hobbes1069@gmail.com> - 2.4.0-3
+- Add recommends for Vera Sans font, fixes RFBZ#5677.
+
 * Mon Sep 11 2017 Sérgio Basto <sergio@serjux.com> - 2.4.0-2
 - Also requires libopenshot >= 0.1.8
 
