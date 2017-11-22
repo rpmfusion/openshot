@@ -33,8 +33,12 @@ Requires:       python3-libopenshot >= 0.1.8
 Requires:       python3-zmq
 Requires:       ffmpeg-libs
 
+%if 0%{?fedora}
 Recommends:     openshot-lang
 Recommends:     font(bitstreamverasans)
+%else
+Requires:     openshot-lang
+%endif
 
 
 %description
