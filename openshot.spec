@@ -1,79 +1,81 @@
+# Redirect find_lang to our patched version
+%global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
+
 Name:           openshot
-Version:        1.4.3
+Version:        2.4.0
 Release:        3%{?dist}
-Summary:        A GTK based non-linear video editor 
+Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
-# All files are GPLv3+ except for files under openshot/uploads/youtube which
-# are ASL 2.0 and openshot/window/SimpleGtkBuilderApp.py which is LGPLv3 making
-# the effective license of openshot GPLv3.
-License:        GPLv3
-URL:            http://www.openshotvideo.com/
+License:        GPLv3+
+URL:            http://www.openshot.org
 
-Source0:        http://launchpad.net/openshot/1.4/%{version}/+download/openshot-%{version}.tar.gz
-Source1:        openshot.png
+Source0:        https://github.com/OpenShot/%{name}-qt/archive/v%{version}/%{name}-qt-%{version}.tar.gz
 
-Patch0:         openshot-1.4.0-use_mlt-melt.diff
-Patch1:         openshot-1.4.0-doc-install.diff
+# QT translation files are installed to a non-standard location
+Source100:      openshot-find-lang.sh
 
-BuildArch: noarch
+BuildArch:      noarch
 
-#BuildRequires: gettext
-BuildRequires: desktop-file-utils
-BuildRequires: python-devel
-# Resize icon
-BuildRequires: ImageMagick
-BuildRequires: exiv2
+BuildRequires:  python3-devel
+BuildRequires:  python3-qt5-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  libopenshot >= 0.1.8
+BuildRequires:  libopenshot-audio
+BuildRequires:  desktop-file-utils
+# To fix icon
+BuildRequires:  ImageMagick
 
-Requires:      mlt
-Requires:      mlt-python
-Requires:      ladspa
-Requires:      notify-python
-Requires:      pygoocanvas
-Requires:      pygtk2-libglade
-Requires:      python(abi) >= 2.5
-Requires:      python-imaging
-Requires:      python-httplib2
-Requires:      pyxdg
-Requires:      SDL
-Requires:      sox
-Requires:      librsvg2
-Requires:      frei0r-plugins
-Requires:      fontconfig
-# Needed because it owns icon directories
-Requires:      hicolor-icon-theme
+Requires:       python3-qt5
+Requires:       python3-qt5-webkit
+Requires:       python3-httplib2
+Requires:       python3-libopenshot >= 0.1.8
+Requires:       python3-zmq
+Requires:       ffmpeg-libs
+
+Recommends:     openshot-lang
+Recommends:     font(bitstreamverasans)
 
 
 %description
-OpenShot Video Editor is a free, open-source, non-linear video editor, based on
-Python, GTK, and MLT. It can edit video and audio files, composite and 
-transition video files, and mix multiple layers of video and audio together and 
-render the output in many different formats.
+OpenShot Video Editor is a free, open-source, non-linear video editor. It
+can create and edit videos and movies using many popular video, audio,
+image formats.  Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,
+Xbox, and many more common formats!
+
+Features include:
+* Multiple tracks (layers)
+* Compositing, image overlays, and watermarks
+* Support for image sequences (rotoscoping)
+* Key-frame animation
+* Video and audio effects (chroma-key)
+* Transitions (lumas and masks)
+* 3D animation (titles and simulations)
+* Upload videos (YouTube and Vimeo supported)
+
+
+%package lang
+Summary:        Additional languages for OpenShot
+Requires:       %{name} = %{version}-%{release}
+
+%description lang
+%{summary}.
 
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-# Don't install unnecessary stuff
-sed -i -e '/lib\/mime\/packages/d' setup.py
+%autosetup -n %{name}-qt-%{version}
 
 
 %build
-%{__python} setup.py build
+%py3_build
 
 
 %install
-%{__python} setup.py install -O1 --skip-build --root=%{buildroot}
-
-# Remove unnecessary .po files
-rm %{buildroot}%{python_sitelib}/%{name}/locale/*/*/*.po
-rm %{buildroot}%{python_sitelib}/%{name}/locale/OpenShot/OpenShot.pot
-rm %{buildroot}%{python_sitelib}/%{name}/locale/README
+%py3_install
 
 # We strip bad shebangs (/usr/bin/env) instead of fixing them
 # since these files are not executable anyways
-find %{buildroot}/%{python_sitelib} -name '*.py' \
+find %{buildroot}/%{python3_sitelib} -name '*.py' \
   -exec grep -q '^#!' '{}' \; -print | while read F
 do
   awk '/^#!/ {if (FNR == 1) next;} {print}' $F >chopped
@@ -82,72 +84,113 @@ do
 done
 
 # Validate desktop file
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt.desktop
 
 # Move icon files to the preferred location
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
-         %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
-mv %{buildroot}%{_datadir}/pixmaps/%{name}.svg \
+         %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
+mv %{buildroot}%{_datadir}/pixmaps/%{name}-qt.svg \
    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-cp -p %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 
-# modify find-lang.sh to deal with gettext .mo files under
-# openshot/locale
-%{__sed} -e 's|/share/locale/|/%{name}/locale/|' \
- /usr/lib/rpm/find-lang.sh \
- > find-lang-modified.sh
+# Provided icon is not square
+convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/openshot-qt.png
 
-sh find-lang-modified.sh %{buildroot} OpenShot %{name}.lang
-find %{buildroot}%{python_sitelib}/%{name}/locale -type d | while read dir
-do
- echo "%%dir ${dir#%{buildroot}}" >> %{name}.lang
-done
+%find_lang OpenShot --with-qt
 
 
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-update-desktop-database &> /dev/null || :
-update-mime-database %{_datadir}/mime &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
-update-desktop-database &> /dev/null || :
-update-mime-database %{_datadir}/mime &> /dev/null || :
 
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
-%files -f %{name}.lang
-%doc AUTHORS COPYING README
-%{_datadir}/gnome/help/openshot/
-%{_datadir}/omf/openshot/
+%files
+%license COPYING
+%doc AUTHORS README
 %{_bindir}/*
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{name}-qt.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/mime/packages/*
-%dir %{python_sitelib}/%{name}
-%{python_sitelib}/%{name}/*.py*
-%{python_sitelib}/%{name}/blender
-%{python_sitelib}/%{name}/classes
-%{python_sitelib}/%{name}/effects
-%{python_sitelib}/%{name}/export_presets
-%{python_sitelib}/%{name}/images
-%{python_sitelib}/%{name}/language
-%{python_sitelib}/%{name}/profiles
-%{python_sitelib}/%{name}/themes
-%{python_sitelib}/%{name}/titles
-%{python_sitelib}/%{name}/transitions
-%{python_sitelib}/%{name}/uploads
-%{python_sitelib}/%{name}/windows
-%{python_sitelib}/*egg-info
-%{_mandir}/man*/* 
+%{python3_sitelib}/%{name}_qt/
+%exclude %{python3_sitelib}/%{name}_qt/locale
+%{python3_sitelib}/*egg-info
+%{_prefix}/lib/mime/packages/openshot-qt
+
+%files lang -f OpenShot.lang
+%dir %{python3_sitelib}/%{name}_qt/locale
 
 
 %changelog
+* Wed Oct 25 2017 Richard Shaw <hobbes1069@gmail.com> - 2.4.0-3
+- Add recommends for Vera Sans font, fixes RFBZ#5677.
+
+* Mon Sep 11 2017 Sérgio Basto <sergio@serjux.com> - 2.4.0-2
+- Also requires libopenshot >= 0.1.8
+
+* Fri Sep 08 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.4.0-1
+- Update to 2.4.0
+- Use python macros
+- Remove obsolete scriptlets
+
+* Sun Sep 03 2017 Sérgio Basto <sergio@serjux.com> - 2.3.4-1
+- Update to 2.3.4
+
+* Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 2.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Fri May 12 2017 Richard Shaw <hobbes1069@gmail.com> - 2.3.2-1
+- Update to latest upstream release.
+
+* Sat Apr 29 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.3.1-2
+- Rebuild for ffmpeg update
+
+* Mon Apr 03 2017 Sérgio Basto <sergio@serjux.com> - 2.3.1-1
+- Update to 2.3.1
+
+* Fri Mar 31 2017 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-1
+- Update to latest upstream release.
+
+* Sat Mar 25 2017 Sérgio Basto <sergio@serjux.com> - 2.2.0-1
+- Update openshot to 2.2.0
+
+* Mon Mar 20 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Sun Dec  4 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-2
+- All translation files now included in openshot-lang, fixes RFBZ#4358.
+- Change dependency on openshot-lang from Requires to Recommends.
+
+* Tue Aug 30 2016 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-1
+- Update to latest upstream release.
+
+* Tue Aug 23 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-5
+- Install locale files.
+
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 2.0.7-4
+- Rebuilt for ffmpeg-3.1.1
+
+* Wed Jul 20 2016 Sérgio Basto <sergio@serjux.com> - 2.0.7-3
+- Add python3-qt5-webkit to package requires
+
+* Mon Apr 18 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-2
+- Update to require python3-libopenshot.
+
+* Fri Apr  8 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.7-1
+- Update to latest upstream release.
+
+* Fri Mar  4 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.6-1
+- Update to latest upstream release.
+
+* Mon Jan 11 2016 Richard Shaw <hobbes1069@gmail.com> - 2.0.4-1
+- Update to latest upstream release.
+
 * Mon Apr  6 2015 Richard Shaw <hobbes1069@gmail.com> - 1.4.3-3
 - Fix broken icon file (BZ#3546).
 - Add ladspa as a install requirement (BZ#3472).
@@ -174,24 +217,3 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 * Mon Jan 30 2012 Richard Shaw <hobbes1069@gmail.com> - 1.4.1-1
 - Update to latest release.
-
-* Fri Sep 23 2011 Richard Shaw <hobbes1069@gmail.com> - 1.4.0-1
-- New release.
-
-* Sun Apr 10 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.0-2
-- Fixed spec file for packaging guidelines compliance.
-
-* Mon Feb 14 2011 Richard Shaw <hobbes1069@gmail.com> - 1.3.0-1
-- Release 1.3.0
-
-* Thu Oct 11 2010 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.2-1
-- Release 1.2.2
-
-* Tue Jun 22 2010 Renich Bon Ćirić <renich@woralelandia.com> - 1.1.3-1
-- Release 1.1.3
-
-* Tue Jan 12 2010 Zarko <zarko.pintar@gmail.com> - 1.0.0-1
-- Release 1.0.0
-
-* Thu Dec 04 2009 Zarko <zarko.pintar@gmail.com> - 0.9.54-1
-- initial release
