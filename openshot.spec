@@ -17,20 +17,20 @@ Source100:      openshot-find-lang.sh
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-qt5-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-qt5-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  libopenshot >= 0.1.8
 BuildRequires:  libopenshot-audio
 BuildRequires:  desktop-file-utils
 # To fix icon
 BuildRequires:  ImageMagick
 
-Requires:       python3-qt5
-Requires:       python3-qt5-webkit
-Requires:       python3-httplib2
-Requires:       python3-libopenshot >= 0.1.8
-Requires:       python3-zmq
+Requires:       python%{python3_pkgversion}-qt5
+Requires:       python%{python3_pkgversion}-qt5-webkit
+Requires:       python%{python3_pkgversion}-httplib2
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.1.8
+Requires:       python%{python3_pkgversion}-zmq
 Requires:       ffmpeg-libs
 
 %if 0%{?fedora}
