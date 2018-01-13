@@ -2,8 +2,8 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.4.0
-Release:        3%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -128,6 +128,9 @@ fi
 
 
 %changelog
+* Sat Jan 13 2018 Richard Shaw <hobbes1069@gmail.com> - 2.4.1-1
+- Update to latest upstream release.
+
 * Wed Oct 25 2017 Richard Shaw <hobbes1069@gmail.com> - 2.4.0-3
 - Add recommends for Vera Sans font, fixes RFBZ#5677.
 
