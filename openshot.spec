@@ -20,8 +20,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-qt5-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  libopenshot >= 0.1.8
-BuildRequires:  libopenshot-audio
+BuildRequires:  libopenshot >= 0.1.9
+BuildRequires:  libopenshot-audio >= 0.1.5
 BuildRequires:  desktop-file-utils
 # To fix icon
 BuildRequires:  ImageMagick
