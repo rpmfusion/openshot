@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -128,6 +128,9 @@ fi
 
 
 %changelog
+* Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.4.1-2
+- Rebuilt for ffmpeg-3.5 git
+
 * Sat Jan 13 2018 Richard Shaw <hobbes1069@gmail.com> - 2.4.1-1
 - Update to latest upstream release.
 
