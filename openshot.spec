@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -17,24 +17,30 @@ Source100:      openshot-find-lang.sh
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-qt5-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-qt5-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  libopenshot >= 0.1.9
 BuildRequires:  libopenshot-audio >= 0.1.5
 BuildRequires:  desktop-file-utils
 # To fix icon
 BuildRequires:  ImageMagick
 
-Requires:       python3-qt5
-Requires:       python3-qt5-webkit
-Requires:       python3-httplib2
-Requires:       python3-libopenshot >= 0.1.8
-Requires:       python3-zmq
+Requires:       python%{python3_pkgversion}-qt5
+Requires:       python%{python3_pkgversion}-qt5-webkit
+Requires:       python%{python3_pkgversion}-httplib2
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.1.9
+Requires:       python%{python3_pkgversion}-zmq
 Requires:       ffmpeg-libs
 
+%if 0%{?fedora}
 Recommends:     openshot-lang
 Recommends:     font(bitstreamverasans)
+Recommends:     blender
+Recommends:     vid.stab
+%else
+Requires:     openshot-lang
+%endif
 
 
 %description
@@ -128,6 +134,10 @@ fi
 
 
 %changelog
+* Sat Feb 17 2018 Sérgio Basto <sergio@serjux.com> - 2.4.1-3
+- Add some recommends to spec
+- Merge epel7 work, but we still haven't python-qt5 in epel7
+
 * Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.4.1-2
 - Rebuilt for ffmpeg-3.5 git
 
