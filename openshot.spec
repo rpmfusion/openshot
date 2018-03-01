@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -104,6 +104,7 @@ convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewp
 %find_lang OpenShot --with-qt
 
 
+%if 0%{?rhel}
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
@@ -115,6 +116,7 @@ fi
 
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
 
 
 %files
@@ -125,15 +127,18 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/mime/packages/*
 %{python3_sitelib}/%{name}_qt/
-%exclude %{python3_sitelib}/%{name}_qt/locale
+%exclude %{python3_sitelib}/%{name}_qt/locale/*
 %{python3_sitelib}/*egg-info
 %{_prefix}/lib/mime/packages/openshot-qt
 
 %files lang -f OpenShot.lang
-%dir %{python3_sitelib}/%{name}_qt/locale
+%dir %{python3_sitelib}/%{name}_qt/locale/*
 
 
 %changelog
+* Thu Mar 01 2018 Richard Shaw <hobbes1069@gmail.com> - 2.4.1-5
+- Fix package ownership of locale directory, fixes RFBZ#4809.
+
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 2.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
