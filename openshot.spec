@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -134,6 +134,9 @@ fi
 
 
 %changelog
+* Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 2.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Sat Feb 17 2018 Sérgio Basto <sergio@serjux.com> - 2.4.1-3
 - Add some recommends to spec
 - Merge epel7 work, but we still haven't python-qt5 in epel7
