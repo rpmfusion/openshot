@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -136,6 +136,9 @@ fi
 
 
 %changelog
+* Tue Jul 10 2018 Miro Hrončok <mhroncok@redhat.com> - 2.4.1-6
+- Rebuilt for Python 3.7
+
 * Thu Mar 01 2018 Richard Shaw <hobbes1069@gmail.com> - 2.4.1-5
 - Fix package ownership of locale directory, fixes RFBZ#4809.
 
