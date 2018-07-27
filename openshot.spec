@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -136,6 +136,9 @@ fi
 
 
 %changelog
+* Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Tue Jul 10 2018 Miro Hrončok <mhroncok@redhat.com> - 2.4.1-6
 - Rebuilt for Python 3.7
 
