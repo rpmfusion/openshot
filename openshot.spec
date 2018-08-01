@@ -2,8 +2,8 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.4.1
-Release:        7%{?dist}
+Version:        2.4.2
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -20,8 +20,8 @@ BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-qt5-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  libopenshot >= 0.1.9
-BuildRequires:  libopenshot-audio >= 0.1.5
+BuildRequires:  libopenshot >= 0.2.0
+BuildRequires:  libopenshot-audio >= 0.1.6
 BuildRequires:  desktop-file-utils
 # To fix icon
 BuildRequires:  ImageMagick
@@ -29,7 +29,7 @@ BuildRequires:  ImageMagick
 Requires:       python%{python3_pkgversion}-qt5
 Requires:       python%{python3_pkgversion}-qt5-webkit
 Requires:       python%{python3_pkgversion}-httplib2
-Requires:       python%{python3_pkgversion}-libopenshot >= 0.1.9
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.0
 Requires:       python%{python3_pkgversion}-zmq
 Requires:       ffmpeg-libs
 
@@ -121,7 +121,7 @@ fi
 
 %files
 %license COPYING
-%doc AUTHORS README
+%doc AUTHORS README.md
 %{_bindir}/*
 %{_datadir}/applications/%{name}-qt.desktop
 %{_datadir}/icons/hicolor/*/apps/*
@@ -136,6 +136,9 @@ fi
 
 
 %changelog
+* Tue Jul 31 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.2-1
+- New upstream release
+
 * Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
