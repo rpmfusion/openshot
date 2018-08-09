@@ -139,9 +139,6 @@ fi
 * Tue Jul 31 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.2-1
 - New upstream release
 
-* Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
 * Tue Jul 10 2018 Miro Hrončok <mhroncok@redhat.com> - 2.4.1-6
 - Rebuilt for Python 3.7
 
