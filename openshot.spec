@@ -52,12 +52,13 @@ Xbox, and many more common formats!
 Features include:
 * Multiple tracks (layers)
 * Compositing, image overlays, and watermarks
+* Audio mixing and editing
 * Support for image sequences (rotoscoping)
 * Key-frame animation
-* Video and audio effects (chroma-key)
+* Video effects (chroma-key)
 * Transitions (lumas and masks)
-* 3D animation (titles and simulations)
-* Upload videos (YouTube and Vimeo supported)
+* Titles with integrated editor and templates
+* 3D animation (titles and effects)
 
 
 %package lang
