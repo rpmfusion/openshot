@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -137,6 +137,10 @@ fi
 
 
 %changelog
+* Sat Sep 1 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.2-1
+- Updated package description
+- Rebuild for updated libopenshot (with new ImageMagick)
+
 * Tue Jul 31 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.2-1
 - New upstream release
 
