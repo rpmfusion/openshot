@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>openshot-qt.desktop</id>
+  <pkgname>openshot</pkgname>
+  <name>OpenShot Video Editor</name>
+  <summary>Create and edit amazing videos and movies</summary>
+  <description>
+  <p>
+OpenShot Video Editor is a free, open-source, non-linear video editor. It
+can create and edit videos and movies using many popular video, audio,
+image formats.  Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,
+Xbox, and many more common formats!
+  </p>
+  <p>
+Features include:
+* Multiple tracks (layers)
+* Compositing, image overlays, and watermarks
+* Audio mixing and editing
+* Support for image sequences (rotoscoping)
+* Key-frame animation
+* Video effects (chroma-key)
+* Transitions (lumas and masks)
+* Titles with integrated editor and templates
+* 3D animation (titles and effects)
+  </p>
+</description>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <url type="bugtracker">https://bugs.launchpad.net/openshot</url>
+  <url type="donation">https://www.openshot.org/donate</url>
+  <url type="help">https://www.openshot.org/user-guide</url>
+  <url type="homepage">https://www.openshot.org</url>
+  <project_group>none</project_group>
+  <screenshots>
+    <screenshot type="default">
+      <image height="637" width="975">https://www.openshot.org/static/files/user-guide/_images/ui-example.jpg</image>
+    </screenshot>
+  </screenshots>
+  <update_contact>hobbes1069@gmail.com</update_contact>
+</component>
