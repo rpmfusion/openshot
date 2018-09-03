@@ -147,7 +147,7 @@ fi
 
 
 %changelog
-* Sat Sep 1 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.2-1
+* Sat Sep 1 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.2-2
 - Updated package description
 - Rebuild for updated libopenshot (with new ImageMagick)
 
