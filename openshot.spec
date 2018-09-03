@@ -136,6 +136,7 @@ fi
 %{_datadir}/applications/%{name}-qt.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/mime/packages/*
+%{_metainfodir}/*.appdata.xml
 %{python3_sitelib}/%{name}_qt/
 %exclude %{python3_sitelib}/%{name}_qt/locale/*
 %{python3_sitelib}/*egg-info
