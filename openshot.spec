@@ -14,8 +14,12 @@ Source0:        https://github.com/OpenShot/%{name}-qt/archive/v%{version}/%{nam
 
 # QT translation files are installed to a non-standard location
 Source100:      openshot-find-lang.sh
+Source101:      openshot-qt.appdata.xml
 
 BuildArch:      noarch
+
+# For appdata
+BuildRequires:  libappstream-glib
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-qt5-devel
@@ -92,6 +96,11 @@ done
 
 # Validate desktop file
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt.desktop
+
+# Install appdata file
+mkdir -p %{buildroot}%{_metainfodir}
+install -pm 0644 %{SOURCE101} %{buildroot}%{_metainfodir}/
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 # Move icon files to the preferred location
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
