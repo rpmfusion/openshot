@@ -8,26 +8,30 @@
   <project_license>GPL-3.0-or-later</project_license>
   <name>OpenShot Video Editor</name>
   <developer_name>OpenShot Studios, LLC</developer_name>
-  <summary>Create and edit amazing videos and movies</summary>
+  <summary>
+    An easy to use, quick to learn, and surprisingly powerful video editor
+  </summary>
   <description>
-  <p>
-OpenShot Video Editor is a free, open-source, non-linear video editor. It
-can create and edit videos and movies using many popular video, audio,
-image formats.  Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,
-Xbox, and many more common formats!
-  </p>
-  <p>
-Features include:
-* Multiple tracks (layers)
-* Compositing, image overlays, and watermarks
-* Audio mixing and editing
-* Support for image sequences (rotoscoping)
-* Key-frame animation
-* Video effects (chroma-key)
-* Transitions (lumas and masks)
-* Titles with integrated editor and templates
-* 3D animation (titles and effects)
-  </p>
+    <p>
+      OpenShot Video Editor is a free, open-source, non-linear video editor. It
+      can create and edit videos and movies using many popular video, audio,
+      image formats. Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,
+      Xbox, and more!
+    </p>
+    <p>
+      Features include:
+      <ul>
+      <li>Multiple tracks (layers)</li>
+      <li>Compositing, image overlays, and watermarks</li>
+      <li>Audio mixing and editing</li>
+      <li>Support for image sequences (rotoscoping)</li>
+      <li>Key-frame animation</li>
+      <li>Video effects (chroma-key)</li>
+      <li>Transitions (lumas and masks)</li>
+      <li>Titles with integrated editor and templates</li>
+      <li>3D animation (titles and effects)</li>
+      </ul>
+    </p>
   </description>
   <provides>
     <binary>openshot-qt</binary>
