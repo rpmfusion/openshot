@@ -2,8 +2,8 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.4.2
-Release:        2%{?dist}
+Version:        2.4.3
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -14,7 +14,14 @@ Source0:        https://github.com/OpenShot/%{name}-qt/archive/v%{version}/%{nam
 
 # QT translation files are installed to a non-standard location
 Source100:      openshot-find-lang.sh
-Source101:      openshot-qt.appdata.xml
+
+# Upstreamed
+#Source101:      openshot-qt.appdata.xml
+
+# Import commit 42ed592b from upstream, to add forgotten 2.4.3 release tag
+Patch0:         openshot-2.4.3-appdata.patch
+# Add openshot-owner@rpmfusion to appdata as update_contact
+Patch1:		openshot-rpmfusion-contact.patch
 
 BuildArch:      noarch
 
@@ -27,13 +34,13 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  libopenshot >= 0.2.0
 BuildRequires:  libopenshot-audio >= 0.1.6
 BuildRequires:  desktop-file-utils
-# To fix icon
-BuildRequires:  ImageMagick
+# To fix icon — fix upstreamed
+# BuildRequires:  ImageMagick
 
 Requires:       python%{python3_pkgversion}-qt5
 Requires:       python%{python3_pkgversion}-qt5-webkit
 Requires:       python%{python3_pkgversion}-httplib2
-Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.0
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.2
 Requires:       python%{python3_pkgversion}-zmq
 Requires:       ffmpeg-libs
 
@@ -74,7 +81,7 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{name}-qt-%{version}
+%autosetup -p1 -n %{name}-qt-%{version}
 
 
 %build
@@ -97,19 +104,17 @@ done
 # Validate desktop file
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt.desktop
 
-# Install appdata file
-mkdir -p %{buildroot}%{_metainfodir}
-install -pm 0644 %{SOURCE101} %{buildroot}%{_metainfodir}/
+# Validate appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
-# Move icon files to the preferred location
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
-         %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
-mv %{buildroot}%{_datadir}/pixmaps/%{name}-qt.svg \
-   %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+# Move icon files to the preferred location — fixed upstream
+#mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
+#         %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
+#mv %{buildroot}%{_datadir}/pixmaps/%{name}-qt.svg \
+#   %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 
-# Provided icon is not square
-convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/openshot-qt.png
+# Provided icon was not square — fixed upstream
+#convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/openshot-qt.png
 
 %find_lang OpenShot --with-qt
 
@@ -135,18 +140,31 @@ fi
 %{_bindir}/*
 %{_datadir}/applications/%{name}-qt.desktop
 %{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/pixmaps/*
 %{_datadir}/mime/packages/*
 %{_metainfodir}/*.appdata.xml
 %{python3_sitelib}/%{name}_qt/
-%exclude %{python3_sitelib}/%{name}_qt/locale/*
+%exclude %{python3_sitelib}/%{name}_qt/language/*
 %{python3_sitelib}/*egg-info
 %{_prefix}/lib/mime/packages/openshot-qt
 
 %files lang -f OpenShot.lang
-%dir %{python3_sitelib}/%{name}_qt/locale/*
+%dir %{python3_sitelib}/%{name}_qt/language
+%{python3_sitelib}/%{name}_qt/language/%{name}_lang.py
+%{python3_sitelib}/%{name}_qt/language/%{name}_lang.qrc
 
 
 %changelog
+* Mon Sep 3 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.3-1
+- New upstream release 2.4.3
+- Update libopenshot dependency version to new 0.2.2 release
+- Drop several upstreamed build fixes
+- Use upstream appdata file instead of our own
+- Patch upstream appdata file for missed release tag
+- Add openshot-owner@rpmfusion.org as update contact in appdata
+- Clean up installed files
+- New translations path, update find logic and packaging
+
 * Sat Sep 1 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.2-2
 - Updated package description
 - Rebuild for updated libopenshot (with new ImageMagick)
