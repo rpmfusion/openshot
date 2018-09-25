@@ -1,0 +1,10 @@
+diff --git a/xdg/openshot-qt.appdata.xml b/xdg/openshot-qt.appdata.xml
+index 69d500fd..133be097 100644
+--- a/xdg/openshot-qt.appdata.xml
++++ b/xdg/openshot-qt.appdata.xml
+@@ -73,4 +73,5 @@
+     <release version="2.4.2" date="2018-06-30"/>
+     <release version="2.4.1" date="2017-11-12"/>
+   </releases>
++  <update_contact>openshot-owner@rpmfusion.org</update_contact>
+ </component>
