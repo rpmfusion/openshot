@@ -104,7 +104,8 @@ done
 # Validate desktop file
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt.desktop
 
-# Validate appdata file
+# Move appdata file to default location and validate
+mv %{buildroot}%{_datadir}/metainfo/*.appdata.xml %{buildroot}%{_metainfodir}/
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 # Move icon files to the preferred location — fixed upstream
