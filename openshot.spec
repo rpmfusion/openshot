@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -22,6 +22,8 @@ Source100:      openshot-find-lang.sh
 Patch0:         openshot-2.4.3-appdata.patch
 # Add openshot-owner@rpmfusion to appdata as update_contact
 Patch1:		openshot-rpmfusion-contact.patch
+# Fix opening project files via the command line / .desktop "Open with..."
+Patch2:		openshot-2.4.3-cmdline.patch
 
 BuildArch:      noarch
 
@@ -48,7 +50,6 @@ Requires:       ffmpeg-libs
 Recommends:     openshot-lang
 Recommends:     font(bitstreamverasans)
 Recommends:     blender
-Recommends:     vid.stab
 %else
 Requires:     openshot-lang
 %endif
@@ -155,6 +156,9 @@ fi
 
 
 %changelog
+* Wed Nov 14 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.3-2
+- Add patch to fix opening files via commandline / .desktop
+
 * Mon Sep 3 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.3-1
 - New upstream release 2.4.3
 - Update libopenshot dependency version to new 0.2.2 release
