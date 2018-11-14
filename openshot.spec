@@ -50,7 +50,6 @@ Requires:       ffmpeg-libs
 Recommends:     openshot-lang
 Recommends:     font(bitstreamverasans)
 Recommends:     blender
-Recommends:     vid.stab
 %else
 Requires:     openshot-lang
 %endif
