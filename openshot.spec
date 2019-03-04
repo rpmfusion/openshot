@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -156,6 +156,9 @@ fi
 
 
 %changelog
+* Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Wed Nov 14 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.3-2
 - Add patch to fix opening files via commandline / .desktop
 
