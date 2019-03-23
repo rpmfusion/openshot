@@ -2,8 +2,8 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.4.3
-Release:        3%{?dist}
+Version:        2.4.4
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -15,15 +15,8 @@ Source0:        https://github.com/OpenShot/%{name}-qt/archive/v%{version}/%{nam
 # QT translation files are installed to a non-standard location
 Source100:      openshot-find-lang.sh
 
-# Upstreamed
-#Source101:      openshot-qt.appdata.xml
-
-# Import commit 42ed592b from upstream, to add forgotten 2.4.3 release tag
-Patch0:         openshot-2.4.3-appdata.patch
 # Add openshot-owner@rpmfusion to appdata as update_contact
 Patch1:		openshot-rpmfusion-contact.patch
-# Fix opening project files via the command line / .desktop "Open with..."
-Patch2:		openshot-2.4.3-cmdline.patch
 
 BuildArch:      noarch
 
@@ -33,16 +26,14 @@ BuildRequires:  libappstream-glib
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-qt5-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  libopenshot >= 0.2.0
-BuildRequires:  libopenshot-audio >= 0.1.6
+BuildRequires:  libopenshot >= 0.2.3
+BuildRequires:  libopenshot-audio >= 0.1.8
 BuildRequires:  desktop-file-utils
-# To fix icon — fix upstreamed
-# BuildRequires:  ImageMagick
 
 Requires:       python%{python3_pkgversion}-qt5
 Requires:       python%{python3_pkgversion}-qt5-webkit
 Requires:       python%{python3_pkgversion}-httplib2
-Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.2
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.3
 Requires:       python%{python3_pkgversion}-zmq
 Requires:       ffmpeg-libs
 
@@ -108,15 +99,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt.desktop
 # Validate appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
-# Move icon files to the preferred location — fixed upstream
-#mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/ \
-#         %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
-#mv %{buildroot}%{_datadir}/pixmaps/%{name}-qt.svg \
-#   %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-
-# Provided icon was not square — fixed upstream
-#convert xdg/openshot-qt.png -virtual-pixel Transparent -set option:distort:viewport "%[fx:max(w,h)]x%[fx:max(w,h)]-%[fx:max((h-w)/2,0)]-%[fx:max((w-h)/2,0)]" -filter point -distort SRT 0 +repage %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/openshot-qt.png
-
 %find_lang OpenShot --with-qt
 
 
@@ -156,6 +138,9 @@ fi
 
 
 %changelog
+* Fri Mar 22 2019 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.4-1
+- New upstream release
+
 * Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
