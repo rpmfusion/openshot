@@ -30,13 +30,14 @@ BuildRequires:  libopenshot >= 0.2.3
 BuildRequires:  libopenshot-audio >= 0.1.8
 BuildRequires:  desktop-file-utils
 
+Requires:       python%{python3_pkgversion}-httplib2
 Requires:       python%{python3_pkgversion}-qt5
 Requires:       python%{python3_pkgversion}-qt5-webkit
-Requires:       python%{python3_pkgversion}-httplib2
 Requires:       python%{python3_pkgversion}-requests
+Requires:       python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-simplejson
-Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.3
 Requires:       python%{python3_pkgversion}-zmq
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.3
 Requires:       ffmpeg-libs
 
 %if 0%{?fedora}
@@ -146,6 +147,9 @@ fi
 
 
 %changelog
+* Mon Apr 29 2019 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.4.4-3
+- setuptools is also a runtime dependency
+
 * Sun Apr 28 2019 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.4.4-2
 - Declare dependency on requests, simplejson Python modules
 
