@@ -98,6 +98,12 @@ done
 # Validate desktop file
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt.desktop
 
+%if 0%{?rhel}
+# Move appdata file to default location
+mkdir -p %{buildroot}%{_metainfodir}
+mv %{buildroot}%{_datadir}/metainfo/*.appdata.xml %{buildroot}%{_metainfodir}/
+%endif #rhel
+
 # Validate appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
