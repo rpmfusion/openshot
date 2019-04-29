@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -33,6 +33,8 @@ BuildRequires:  desktop-file-utils
 Requires:       python%{python3_pkgversion}-qt5
 Requires:       python%{python3_pkgversion}-qt5-webkit
 Requires:       python%{python3_pkgversion}-httplib2
+Requires:       python%{python3_pkgversion}-requests
+Requires:       python%{python3_pkgversion}-simplejson
 Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.3
 Requires:       python%{python3_pkgversion}-zmq
 Requires:       ffmpeg-libs
@@ -138,6 +140,9 @@ fi
 
 
 %changelog
+* Sun Apr 28 2019 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.4.4-2
+- Declare dependency on requests, simplejson Python modules
+
 * Fri Mar 22 2019 FeRD (Frank Dana) <ferdnyc AT gmail com> - 2.4.4-1
 - New upstream release
 
