@@ -54,7 +54,7 @@ fi
 shift
 
 if [ -z "$1" ] ; then usage
-else NAME=$1
+else NAMES[0]=$1
 fi
 shift
 
@@ -65,7 +65,7 @@ QT=#
 MAN=#
 HTML=#
 MO=
-MO_NAME=$NAME.lang
+MO_NAME=${NAMES[0]}.lang
 ALL_NAME=#
 NO_ALL_NAME=
 
@@ -105,11 +105,20 @@ while test $# -gt 0 ; do
 		shift
 		;;
 	* )
+		if [ $MO_NAME != ${NAMES[$#]}.lang ]; then
+		    NAMES[${#NAMES[@]}]=$MO_NAME
+		fi
 		MO_NAME=${1}
 		shift
 		;;
     esac
 done    
+
+if [ -f $MO_NAME ]; then
+    rm $MO_NAME
+fi
+
+for NAME in ${NAMES[@]}; do
 
 find "$TOP_DIR" -type f -o -type l|sed '
 s:'"$TOP_DIR"'::
@@ -117,7 +126,7 @@ s:'"$TOP_DIR"'::
 '"$NO_ALL_NAME$MO"'s:\(.*/locale/\)\([^/_]\+\)\(.*/'"$NAME"'\.mo$\):%lang(\2) \1\2\3:
 s:^\([^%].*\)::
 s:%lang(C) ::
-/^$/d' > $MO_NAME
+/^$/d' >> $MO_NAME
 
 find "$TOP_DIR" -type d|sed '
 s:'"$TOP_DIR"'::
@@ -162,7 +171,7 @@ s:'"$TOP_DIR"'::
 '"$NO_ALL_NAME$MATE"'s:\(.*/mate/help/'"$NAME"'\/\)\([^/_]\+\):%lang(\2) \1\2:
 '"$ALL_NAME$MATE"'s:\(.*/mate/help/[a-zA-Z0-9.\_\-]\+$\):%dir \1:
 '"$ALL_NAME$MATE"'s:\(.*/mate/help/[a-zA-Z0-9.\_\-]\+/[a-zA-Z0-9.\_\-]/.\+\)::
-'"$ALL_NAME$GNOME"'s:\(.*/mate/help/[a-zA-Z0-9.\_\-]\+\/\)\([^/_]\+\):%lang(\2) \1\2:
+'"$ALL_NAME$MATE"'s:\(.*/mate/help/[a-zA-Z0-9.\_\-]\+\/\)\([^/_]\+\):%lang(\2) \1\2:
 s:%lang(.*) .*/mate/help/[a-zA-Z0-9.\_\-]\+/[a-zA-Z0-9.\_\-]\+/.*::
 s:^\([^%].*\)::
 s:%lang(C) ::
@@ -209,6 +218,19 @@ s:%lang(C) ::
 /^$/d' >> $MO_NAME
 fi
 
+KF5_HTML=`kf5-config --expandvars --install html 2>/dev/null`
+if [ x"$KF5_HTML" != x -a -d "$TOP_DIR$KF5_HTML" ]; then
+find "$TOP_DIR$KF5_HTML" -type d|sed '
+s:'"$TOP_DIR"'::
+'"$NO_ALL_NAME$KDE"'s:\(.*/HTML/\)\([^/_]\+\)\(.*/'"$NAME"'/\)::
+'"$NO_ALL_NAME$KDE"'s:\(.*/HTML/\)\([^/_]\+\)\(.*/'"$NAME"'\)$:%lang(\2) \1\2\3:
+'"$ALL_NAME$KDE"'s:\(.*/HTML/\)\([^/_]\+\)\(.*/[a-zA-Z0-9.\_\-]\+/\)::
+'"$ALL_NAME$KDE"'s:\(.*/HTML/\)\([^/_]\+\)\(.*/[a-zA-Z0-9.\_\-]\+$\):%lang(\2) \1\2\3:
+s:^\([^%].*\)::
+s:%lang(C) ::
+/^$/d' >> $MO_NAME
+fi
+
 find "$TOP_DIR" -type d|sed '
 s:'"$TOP_DIR"'::
 '"$NO_ALL_NAME$HTML"'s:\(.*/doc/HTML/\)\([^/_]\+\)\(.*/'"$NAME"'/\)::
@@ -221,10 +243,12 @@ s:%lang(C) ::
 
 find "$TOP_DIR" -type f -o -type l|sed '
 s:'"$TOP_DIR"'::
+'"$NO_ALL_NAME$QT"'s:\(.*/'"$NAME"'\.\([a-zA-Z]\{2,3\}\([_@].*\)\?\)\.qm$\):%lang(\2) \1:
 '"$NO_ALL_NAME$QT"'s:\(.*/locale/\)\([^/_]\+\)\(.*/'"$NAME"'\.qm$\):%lang(\2) \1\2\3:
-#'"$NO_ALL_NAME$QT"'s:\(.*/'"$NAME"'_\([a-zA-Z]\{2\}\([_@].*\)\?\)\.qm$\):%lang(\2) \1:
-'"$ALL_NAME$QT"'s:\(.*/[^/_]\+_\([a-zA-Z]\{2\}[_@].*\)\.qm$\):%lang(\2) \1:
-'"$ALL_NAME$QT"'s:\(.*/[^/_]\+_\([a-zA-Z]\{2\}\)\.qm$\):%lang(\2) \1:
+'"$ALL_NAME$QT"'s:^\([^%].*/\([a-zA-Z]\{2\}[_@].*\)\.qm$\):%lang(\2) \1:
+'"$ALL_NAME$QT"'s:^\([^%].*/\([a-zA-Z]\{2\}\)\.qm$\):%lang(\2) \1:
+'"$ALL_NAME$QT"'s:^\([^%].*/[^/_]\+_\([a-zA-Z]\{2\}[_@].*\)\.qm$\):%lang(\2) \1:
+'"$ALL_NAME$QT"'s:^\([^%].*/[^/_]\+_\([a-zA-Z]\{2\}\)\.qm$\):%lang(\2) \1:
 '"$ALL_NAME$QT"'s:^\([^%].*/[^/]\+_\([a-zA-Z]\{2\}[_@].*\)\.qm$\):%lang(\2) \1:
 '"$ALL_NAME$QT"'s:^\([^%].*/[^/]\+_\([a-zA-Z]\{2\}\)\.qm$\):%lang(\2) \1:
 s:^[^%].*::
@@ -245,6 +269,8 @@ s:'"$TOP_DIR"'::
 s:^\([^%].*\)::
 s:%lang(C) ::
 /^$/d' >> $MO_NAME
+
+done # for NAME in ${NAMES[@]}
 
 if ! grep -q / $MO_NAME; then
 	echo "No translations found for ${NAME} in ${TOP_DIR}"
