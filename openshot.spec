@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 2.4.4-3
+- Rebuild for new ffmpeg version
+
 * Mon Apr 29 2019 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.4.4-3
 - Remove simplejson require, not actually a dependency after all
 - setuptools, however, is also a runtime dependency
