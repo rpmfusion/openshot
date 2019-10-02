@@ -1,10 +1,22 @@
-diff --git a/xdg/openshot-qt.appdata.xml b/xdg/openshot-qt.appdata.xml
-index 69d500fd..133be097 100644
---- a/xdg/openshot-qt.appdata.xml
-+++ b/xdg/openshot-qt.appdata.xml
-@@ -73,4 +73,5 @@
+From 94ae0e834373060f8a750d8236f68b3b0f584152 Mon Sep 17 00:00:00 2001
+From: "FeRD (Frank Dana)" <ferdnyc@gmail.com>
+Date: Mon, 16 Sep 2019 21:31:49 -0400
+Subject: [PATCH] Update AppData file with rpmfusion contact info
+
+---
+ xdg/org.openshot.OpenShot.appdata.xml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/xdg/org.openshot.OpenShot.appdata.xml b/xdg/org.openshot.OpenShot.appdata.xml
+index ae2cba9..b479169 100644
+--- a/xdg/org.openshot.OpenShot.appdata.xml
++++ b/xdg/org.openshot.OpenShot.appdata.xml
+@@ -74,4 +74,5 @@
      <release version="2.4.2" date="2018-06-30"/>
      <release version="2.4.1" date="2017-11-12"/>
    </releases>
-+  <update_contact>openshot-owner@rpmfusion.org</update_contact>
++    <update_contact>openshot-owner@rpmfusion.org</update_contact>
  </component>
+-- 
+2.21.0
+
