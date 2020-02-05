@@ -13,7 +13,7 @@
 
 Name:           openshot
 Version:        2.4.4
-Release:        4.%{gitdate}git%{shortrev}%{?dist}
+Release:        5.%{gitdate}git%{shortrev}%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -157,6 +157,9 @@ fi
 
 
 %changelog
+* Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4.4-5.20191002git5f08a30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Mon Sep 16 2019 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.4.4-4
 - Update to git HEAD for compatibility with new Blender 2.80 release
 - Handle renamed metadata files
