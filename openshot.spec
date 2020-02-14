@@ -99,7 +99,7 @@ done
 # Validate desktop file
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} <= 7
 # Move appdata file to default location
 mkdir -p %{buildroot}%{_metainfodir}
 mv %{buildroot}%{_datadir}/metainfo/*.appdata.xml %{buildroot}%{_metainfodir}/
@@ -116,7 +116,7 @@ rmdir -p --ignore-fail-on-non-empty %{buildroot}%{_prefix}/lib/mime/packages
 %find_lang OpenShot --with-qt
 
 
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} <= 7
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
