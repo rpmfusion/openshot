@@ -1,33 +1,23 @@
-# Git information for unreleased build
-#
-# Note: Building from development tree because with the release
-# of Blender 2.8 in the fedora repos, OpenShot's animated-title feature
-# is no longer compatible with the available blender version. OpenShot's
-# Blender-2.80-compatible code has been committed, but not yet released
-%global gitrev 5f08a30102b55e16aaf898dd641732c46c52d528
-%global shortrev %(c=%{gitrev}; echo ${c:0:7})
-%global gitdate 20191002
-
 # Redirect find_lang to our patched version
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.4.4
-Release:        5.%{gitdate}git%{shortrev}%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
 License:        GPLv3+
 URL:            http://www.openshot.org
 
-#Source0:        https://github.com/OpenShot/%{name}-qt/archive/v%{version}/%{name}-qt-%{version}.tar.gz
-Source0:        https://github.com/OpenShot/%{name}-qt/archive/%{gitrev}.tar.gz#/%{name}-qt-%{shortrev}.tar.gz
+%global distname %{name}-qt
+Source0:        https://github.com/OpenShot/%{distname}/archive/v%{version}/%{distname}-%{version}.tar.gz
 
 # QT translation files are installed to a non-standard location
 Source100:      openshot-find-lang.sh
 
 # Add openshot-owner@rpmfusion to appdata as update_contact
-Patch1:		openshot-rpmfusion-contact.patch
+Patch1:         openshot-rpmfusion-contact.patch
 
 BuildArch:      noarch
 
@@ -37,8 +27,8 @@ BuildRequires:  libappstream-glib
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-qt5-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  libopenshot >= 0.2.3
-BuildRequires:  libopenshot-audio >= 0.1.8
+BuildRequires:  libopenshot >= 0.2.4
+BuildRequires:  libopenshot-audio >= 0.1.9
 BuildRequires:  desktop-file-utils
 
 Requires:       python%{python3_pkgversion}-httplib2
@@ -47,7 +37,7 @@ Requires:       python%{python3_pkgversion}-qt5-webkit
 Requires:       python%{python3_pkgversion}-requests
 Requires:       python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-zmq
-Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.3
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.4
 Requires:       ffmpeg-libs >= 3.4.7
 
 %if 0%{?fedora}
@@ -86,7 +76,7 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n %{name}-qt-%{gitrev}
+%autosetup -p1 -n %{distname}-%{version}
 
 
 %build
@@ -113,10 +103,15 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 # Move appdata file to default location
 mkdir -p %{buildroot}%{_metainfodir}
 mv %{buildroot}%{_datadir}/metainfo/*.appdata.xml %{buildroot}%{_metainfodir}/
-%endif #rhel
+%endif
 
 # Validate appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+
+# Remove an outdated file installed into /usr/lib/mime/
+rm -f %{buildroot}%{_prefix}/lib/mime/packages/openshot-qt
+rmdir -p --ignore-fail-on-non-empty %{buildroot}%{_prefix}/lib/mime/packages
+
 
 %find_lang OpenShot --with-qt
 
@@ -148,7 +143,6 @@ fi
 %{python3_sitelib}/%{name}_qt/
 %exclude %{python3_sitelib}/%{name}_qt/language/*
 %{python3_sitelib}/*egg-info
-%{_prefix}/lib/mime/packages/openshot-qt
 
 %files lang -f OpenShot.lang
 %dir %{python3_sitelib}/%{name}_qt/language
@@ -157,6 +151,9 @@ fi
 
 
 %changelog
+* Fri Feb 14 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.0-1
+- New upstream release
+
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4.4-5.20191002git5f08a30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
