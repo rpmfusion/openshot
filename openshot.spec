@@ -20,6 +20,8 @@ Source100:      openshot-find-lang.sh
 Patch1:         openshot-rpmfusion-contact.patch
 
 BuildArch:      noarch
+# libopenshot is unavailable on ppc64le, see rfbz #5528
+ExcludeArch:    ppc64le
 
 # For appdata
 BuildRequires:  libappstream-glib
