@@ -2,7 +2,7 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.5.0
+Version:        2.5.1
 Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
@@ -153,6 +153,9 @@ fi
 
 
 %changelog
+* Sat Mar 07 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-1
+- New upstream release
+
 * Fri Feb 14 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.0-1
 - New upstream release
 
