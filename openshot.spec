@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -153,6 +153,9 @@ fi
 
 
 %changelog
+* Tue Jun 02 2020 Leigh Scott <leigh123linux@gmail.com> - 2.5.1-2
+- Rebuild for python-3.9
+
 * Sat Mar 07 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-1
 - New upstream release
 
