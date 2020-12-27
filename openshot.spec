@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -18,6 +18,9 @@ Source100:      openshot-find-lang.sh
 
 # Add openshot-owner@rpmfusion to appdata as update_contact
 Patch1:         openshot-rpmfusion-contact.patch
+# Backported fix for crashes under Python 3.9, see
+# https://github.com/OpenShot/openshot-qt/pull/3937/
+Patch2:		openshot-2.5.1-unity.patch
 
 BuildArch:      noarch
 # libopenshot is unavailable on ppc64le, see rfbz #5528
@@ -153,6 +156,10 @@ fi
 
 
 %changelog
+* Sun Dec 27 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-4
+- Backport fix to remove Ubuntu Unity integration, causing crashes in
+  Python 3.9.
+
 * Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
