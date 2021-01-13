@@ -158,7 +158,7 @@ fi
 
 
 %changelog
-* Wed Jan 13 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-5
+* Wed Jan 13 2021 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-5
 - Add Recommends: dependencies for defusedxml and distro, on Fedora
 
 * Sun Dec 27 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-4
