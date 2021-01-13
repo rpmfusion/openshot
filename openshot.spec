@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -49,6 +49,8 @@ Requires:       ffmpeg-libs >= 3.4.7
 Recommends:     openshot-lang
 Recommends:     font(bitstreamverasans)
 Recommends:     blender >= 2.80
+Recommends:	python%{python3_pkgversion}-defusedxml
+Recommends:	python%{python3_pkgversion}-distro
 %else
 Requires:     openshot-lang
 %endif
@@ -156,6 +158,9 @@ fi
 
 
 %changelog
+* Wed Jan 13 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-5
+- Add Recommends: dependencies for defusedxml and distro, on Fedora
+
 * Sun Dec 27 2020 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-4
 - Backport fix to remove Ubuntu Unity integration, causing crashes in
   Python 3.9.
