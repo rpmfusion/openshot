@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Wed Feb 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
 * Wed Jan 13 2021 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-5
 - Add Recommends: dependencies for defusedxml and distro, on Fedora
 
