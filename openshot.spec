@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.5.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Tue Jun 15 2021 Leigh Scott <leigh123linux@gmail.com> - 2.5.1-7
 - Rebuild for python-3.10
 
