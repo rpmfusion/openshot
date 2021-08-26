@@ -2,8 +2,8 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.5.1
-Release:        8%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -18,9 +18,6 @@ Source100:      openshot-find-lang.sh
 
 # Add openshot-owner@rpmfusion to appdata as update_contact
 Patch1:         openshot-rpmfusion-contact.patch
-# Backported fix for crashes under Python 3.9, see
-# https://github.com/OpenShot/openshot-qt/pull/3937/
-Patch2:		openshot-2.5.1-unity.patch
 
 BuildArch:      noarch
 # libopenshot is unavailable on ppc64le, see rfbz #5528
@@ -49,10 +46,10 @@ Requires:       ffmpeg-libs >= 3.4.7
 Recommends:     openshot-lang
 Recommends:     font(bitstreamverasans)
 Recommends:     blender >= 2.80
-Recommends:	python%{python3_pkgversion}-defusedxml
-Recommends:	python%{python3_pkgversion}-distro
+Recommends:     python%{python3_pkgversion}-defusedxml
+Recommends:     python%{python3_pkgversion}-distro
 %else
-Requires:     openshot-lang
+Requires:       openshot-lang
 %endif
 
 
@@ -143,7 +140,7 @@ fi
 %doc AUTHORS README.md
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
-%{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/pixmaps/*
 %{_datadir}/mime/packages/*
 %{_metainfodir}/*.appdata.xml
@@ -158,6 +155,9 @@ fi
 
 
 %changelog
+* Thu Aug 26 2021 Leigh Scott <leigh123linux@gmail.com> - 2.6.0-1
+- New upstream release
+
 * Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
