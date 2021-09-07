@@ -2,7 +2,7 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 
@@ -29,7 +29,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-qt5-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  libopenshot >= 0.2.4
+BuildRequires:  libopenshot >= 0.2.7
 BuildRequires:  libopenshot-audio >= 0.1.9
 BuildRequires:  desktop-file-utils
 
@@ -39,7 +39,7 @@ Requires:       python%{python3_pkgversion}-qt5-webkit
 Requires:       python%{python3_pkgversion}-requests
 Requires:       python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-zmq
-Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.4
+Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.7
 Requires:       ffmpeg-libs >= 3.4.7
 
 %if 0%{?fedora}
@@ -155,6 +155,9 @@ fi
 
 
 %changelog
+* Tue Sep 07 2021 Leigh Scott <leigh123linux@gmail.com> - 2.6.1-1
+- New upstream release
+
 * Thu Aug 26 2021 Leigh Scott <leigh123linux@gmail.com> - 2.6.0-1
 - New upstream release
 
