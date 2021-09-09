@@ -1,0 +1,29 @@
+From 904663c2fc481b312c845f6b112a4b8bec6995be Mon Sep 17 00:00:00 2001
+From: "FeRD (Frank Dana)" <ferdnyc@gmail.com>
+Date: Wed, 29 Apr 2020 04:18:09 -0400
+Subject: [PATCH] Blender: Fix filename join
+
+---
+ src/windows/views/blender_listview.py | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/windows/views/blender_listview.py b/src/windows/views/blender_listview.py
+index 1db7af8a01..43e3a252be 100644
+--- a/src/windows/views/blender_listview.py
++++ b/src/windows/views/blender_listview.py
+@@ -148,9 +148,12 @@ def currentChanged(self, selected, deselected):
+                             continue
+ 
+                         param["values"][fileName] = "|".join(
+-                            file.data["path"], str(file.data["height"]),
+-                            str(file.data["width"]), file.data["media_type"],
+-                            str(file.data["fps"]["num"] / file.data["fps"]["den"])
++                            (file.data["path"],
++                             str(file.data["height"]),
++                             str(file.data["width"]),
++                             file.data["media_type"],
++                             str(file.data["fps"]["num"] / file.data["fps"]["den"])
++                             )
+                         )
+ 
+                 # Add normal values

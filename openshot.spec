@@ -3,7 +3,7 @@
 
 Name:           openshot
 Version:        2.5.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -21,6 +21,7 @@ Patch1:         openshot-rpmfusion-contact.patch
 # Backported fix for crashes under Python 3.9, see
 # https://github.com/OpenShot/openshot-qt/pull/3937/
 Patch2:		openshot-2.5.1-unity.patch
+Patch3:     https://github.com/OpenShot/openshot-qt/commit/904663c2fc481b312c845f6b112a4b8bec6995be.patch#/Fix_filename_join.patch
 
 BuildArch:      noarch
 # libopenshot is unavailable on ppc64le, see rfbz #5528
@@ -158,7 +159,10 @@ fi
 
 
 %changelog
-* Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.5.1-8
+* Thu Sep 09 2021 Leigh Scott <leigh123linux@gmail.com> - 2.5.1-9
+- Fix filename join (rfbz#6080)
+
+* Tue  Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
 * Tue Jun 15 2021 Leigh Scott <leigh123linux@gmail.com> - 2.5.1-7
