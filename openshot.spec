@@ -1,9 +1,13 @@
+%global commit  b72327d1163f12362ff5d2a38751d3e2c61f7ba6
+%global date 20211104
+%global shortcommit0 %(c=%{commit}; echo ${c:0:7})
+
 # Redirect find_lang to our patched version
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.6.1
-Release:        1%{?dist}
+Version:        2.6.2
+Release:        0.1%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -11,13 +15,17 @@ License:        GPLv3+
 URL:            http://www.openshot.org
 
 %global distname %{name}-qt
-Source0:        https://github.com/OpenShot/%{distname}/archive/v%{version}/%{distname}-%{version}.tar.gz
+#Source0:        https://github.com/OpenShot/%{distname}/archive/v%{version}/%{distname}-%{version}.tar.gz
+Source0:        https://github.com/OpenShot/%{distname}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 # QT translation files are installed to a non-standard location
 Source100:      openshot-find-lang.sh
 
 # Add openshot-owner@rpmfusion to appdata as update_contact
 Patch1:         openshot-rpmfusion-contact.patch
+
+# https://github.com/OpenShot/openshot-qt/pull/4527
+Patch2:         py310_fix.patch
 
 BuildArch:      noarch
 # libopenshot is unavailable on ppc64le, see rfbz #5528
@@ -80,7 +88,7 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n %{distname}-%{version}
+%autosetup -p1 -n %{distname}-%{commit}
 
 
 %build
@@ -155,6 +163,10 @@ fi
 
 
 %changelog
+* Mon Nov 08 2021 Leigh Scott <leigh123linux@gmail.com> - 2.6.2-0.1.20211104gitb72327d
+- Update to git snapshot
+- Patch for python-3.10
+
 * Tue Sep 07 2021 Leigh Scott <leigh123linux@gmail.com> - 2.6.1-1
 - New upstream release
 
