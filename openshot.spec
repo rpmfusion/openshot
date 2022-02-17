@@ -48,7 +48,11 @@ Requires:       python%{python3_pkgversion}-requests
 Requires:       python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-zmq
 Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.7
+%if 0%{?fedora} && 0%{?fedora} > 35
+Requires:       compat-ffmpeg4
+%else
 Requires:       ffmpeg-libs >= 3.4.7
+%endif
 
 %if 0%{?fedora}
 Recommends:     openshot-lang
