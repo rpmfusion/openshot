@@ -7,7 +7,7 @@
 
 Name:           openshot
 Version:        2.6.2
-Release:        0.3%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        0.4%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -167,6 +167,10 @@ fi
 
 
 %changelog
+* Sun Aug 07 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.6.2-0.4.20211104gitb72327d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
+  5.1
+
 * Sat Jun 25 2022 Robert-André Mauchin <zebob.m@gmail.com> - 2.6.2-0.3.20211104gitb72327d
 - Rebuilt for Python 3.11
 
