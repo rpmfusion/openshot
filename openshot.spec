@@ -1,13 +1,13 @@
-%global commit  b72327d1163f12362ff5d2a38751d3e2c61f7ba6
-%global date 20211104
-%global shortcommit0 %(c=%{commit}; echo ${c:0:7})
+#global commit  b72327d1163f12362ff5d2a38751d3e2c61f7ba6
+#global date 20211104
+#global shortcommit0 %%(c=%{commit}; echo ${c:0:7})
 
 # Redirect find_lang to our patched version
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        2.6.2
-Release:        0.4%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Version:        3.0.0
+Release:        1%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -15,17 +15,14 @@ License:        GPLv3+
 URL:            http://www.openshot.org
 
 %global distname %{name}-qt
-#Source0:        https://github.com/OpenShot/%{distname}/archive/v%{version}/%{distname}-%{version}.tar.gz
-Source0:        https://github.com/OpenShot/%{distname}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0:        https://github.com/OpenShot/%{distname}/archive/v%{version}/%{distname}-%{version}.tar.gz
+#Source0:        https://github.com/OpenShot/%%{distname}/archive/%%{commit}/%%{name}-%%{commit}.tar.gz
 
 # QT translation files are installed to a non-standard location
 Source100:      openshot-find-lang.sh
 
 # Add openshot-owner@rpmfusion to appdata as update_contact
 Patch1:         openshot-rpmfusion-contact.patch
-
-# https://github.com/OpenShot/openshot-qt/pull/4527
-Patch2:         py310_fix.patch
 
 BuildArch:      noarch
 # libopenshot is unavailable on ppc64le, see rfbz #5528
@@ -37,8 +34,8 @@ BuildRequires:  libappstream-glib
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-qt5-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  libopenshot >= 0.2.7
-BuildRequires:  libopenshot-audio >= 0.1.9
+BuildRequires:  libopenshot >= 0.3.0
+BuildRequires:  libopenshot-audio >= 0.3.0
 BuildRequires:  desktop-file-utils
 
 Requires:       python%{python3_pkgversion}-httplib2
@@ -48,11 +45,7 @@ Requires:       python%{python3_pkgversion}-requests
 Requires:       python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-zmq
 Requires:       python%{python3_pkgversion}-libopenshot >= 0.2.7
-%if 0%{?fedora} && 0%{?fedora} > 35
-Requires:       compat-ffmpeg4
-%else
 Requires:       ffmpeg-libs >= 3.4.7
-%endif
 
 %if 0%{?fedora}
 Recommends:     openshot-lang
@@ -60,6 +53,7 @@ Recommends:     font(bitstreamverasans)
 Recommends:     blender >= 2.80
 Recommends:     python%{python3_pkgversion}-defusedxml
 Recommends:     python%{python3_pkgversion}-distro
+Recommends:     python%{python3_pkgversion}-sentry-sdk
 %else
 Requires:       openshot-lang
 %endif
@@ -92,7 +86,7 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n %{distname}-%{commit}
+%autosetup -p1 -n %{distname}-%{version}
 
 
 %build
@@ -132,21 +126,6 @@ rmdir -p --ignore-fail-on-non-empty %{buildroot}%{_prefix}/lib/mime/packages
 %find_lang OpenShot --with-qt
 
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
-
-
 %files
 %license COPYING
 %doc AUTHORS README.md
@@ -167,6 +146,9 @@ fi
 
 
 %changelog
+* Fri Dec 02 2022 Leigh Scott <leigh123linux@gmail.com> - 3.0.0-1
+- New upstream release
+
 * Sun Aug 07 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.6.2-0.4.20211104gitb72327d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
   5.1
