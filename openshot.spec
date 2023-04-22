@@ -6,7 +6,7 @@
 %global find_lang %{_sourcedir}/openshot-find-lang.sh %{buildroot}
 
 Name:           openshot
-Version:        3.1.0
+Version:        3.1.1
 Release:        1%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Create and edit videos and movies
 
@@ -146,6 +146,9 @@ rmdir -p --ignore-fail-on-non-empty %{buildroot}%{_prefix}/lib/mime/packages
 
 
 %changelog
+* Sat Apr 22 2023 Leigh Scott <leigh123linux@gmail.com> - 3.1.1-1
+- New upstream release
+
 * Fri Apr 07 2023 Leigh Scott <leigh123linux@gmail.com> - 3.1.0-1
 - New upstream release
 
