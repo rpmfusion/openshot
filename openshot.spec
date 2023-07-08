@@ -7,7 +7,7 @@
 
 Name:           openshot
 Version:        3.1.1
-Release:        1%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        2%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -146,6 +146,9 @@ rmdir -p --ignore-fail-on-non-empty %{buildroot}%{_prefix}/lib/mime/packages
 
 
 %changelog
+* Sat Jul 08 2023 Leigh Scott <leigh123linux@gmail.com> - 3.1.1-2
+- Rebuilt for Python 3.12
+
 * Sat Apr 22 2023 Leigh Scott <leigh123linux@gmail.com> - 3.1.1-1
 - New upstream release
 
