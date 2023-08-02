@@ -7,7 +7,7 @@
 
 Name:           openshot
 Version:        3.1.1
-Release:        2%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        3%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Create and edit videos and movies
 
 Group:          Applications/Multimedia
@@ -146,6 +146,9 @@ rmdir -p --ignore-fail-on-non-empty %{buildroot}%{_prefix}/lib/mime/packages
 
 
 %changelog
+* Wed Aug 02 2023 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 3.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Leigh Scott <leigh123linux@gmail.com> - 3.1.1-2
 - Rebuilt for Python 3.12
 
